@@ -39,11 +39,16 @@ module.exports = React.createClass({
         />
 
         <Button text={'log in'} onPress={this.onLoginPress} />
+
+        <Text style={styles.signup} onPress={this.onSignupPress}>Or create an account</Text>
       </View>
     );
   },
   onLoginPress: function() {
 
+  },
+  onSignupPress: function() {
+    console.log('pressed onSignupPress');
   }
 });
 
@@ -71,5 +76,9 @@ var styles = StyleSheet.create({
   label: {
     fontSize: 20,
     color: '#555'
+  },
+  signup: {
+    padding: 20,
+    marginTop: 30
   }
 });
