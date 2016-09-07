@@ -6,11 +6,21 @@ import {
   TextInput
 } from 'react-native';
 
+var Button = require('../common/button');
+
 module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text>Test Login</Text>
+        <Text style={styles.header}>Login</Text>
+
+        <Text style={styles.label}>Username</Text>
+        <TextInput style={styles.input} />
+
+        <Text style={styles.label}>Password</Text>
+        <TextInput style={styles.input} />
+
+
       </View>
     );
   }
@@ -31,5 +41,12 @@ var styles = StyleSheet.create({
     margin: 5,
     width: 200,
     alignSelf: 'center'
+  },
+  header: {
+    fontSize: 30,
+    margin: 10
+  },
+  label: {
+    fontSize: 20
   }
 });
