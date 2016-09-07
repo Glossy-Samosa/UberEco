@@ -2,14 +2,15 @@
 iOS main 'enter destination' page
 */
 import React, { Component } from 'react';
-import { AppRegistry, Text, View } from 'react-native';
+import { MapView } from 'react-native';
 
-var style = require('./styles/stylesheet.js');
-
-class MainPage extends Component {
+class EnterDestination extends Component {
   render() {
     return (
-      <View> </View>
+      <MapView
+        style={{height: 200, margin: 40}}
+        showsUserLocation={true}
+      />
     );
   }
 }
