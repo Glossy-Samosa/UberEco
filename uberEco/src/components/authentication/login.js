@@ -9,20 +9,41 @@ import {
 var Button = require('../common/button');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      username: '',
+      password: ''
+    };
+  },
   render: function() {
     return (
-      <View style={styles.container}>
+      <View 
+        style={styles.container}
+      >
+
         <Text style={styles.header}>Login</Text>
 
         <Text style={styles.label}>Username</Text>
-        <TextInput style={styles.input} />
+        <TextInput 
+          style={styles.input} 
+          value={this.state.username}
+          onChangeText={(text) => this.setState({username: text})}
+        />
 
         <Text style={styles.label}>Password</Text>
-        <TextInput style={styles.input} />
+        <TextInput 
+          secureTextEntry={true}
+          style={styles.input} 
+          value={this.state.password}
+          onChangeText={(text) => this.setState({password: text})}
+        />
 
-
+        <Button text={'log in'} onPress={this.onLoginPress} />
       </View>
     );
+  },
+  onLoginPress: function() {
+
   }
 });
 
@@ -35,7 +56,7 @@ var styles = StyleSheet.create({
   input: {
     padding: 4,
     height: 40,
-    borderColor: 'black',
+    borderColor: '#777',
     borderWidth: 1,
     borderRadius: 5,
     margin: 5,
@@ -44,9 +65,11 @@ var styles = StyleSheet.create({
   },
   header: {
     fontSize: 30,
+    fontWeight: 'bold',
     margin: 10
   },
   label: {
-    fontSize: 20
+    fontSize: 20,
+    color: '#555'
   }
 });
