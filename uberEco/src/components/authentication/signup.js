@@ -56,12 +56,14 @@ module.exports = React.createClass({
     );
   },
   onSignupPress: function() {
-    if (this.state.username === '' || this.state.password === '' || this.state.passwordConfirmation) {
+    if (this.state.username === '' || this.state.password === '' || this.state.passwordConfirmation === '') {
       return this.setState({errorMessage: 'Please enter a password and username'});
     }
     if (this.state.password !== this.state.passwordConfirmation) {
       return this.setState({errorMessage: 'Your passwords do not match'});
     }
+    // CREATE SERVER POST HERE
+    this.props.navigator.immediatelyResetRouteStack([{name: 'maps'}]);
   },
   onLoginPress: function() {
     this.props.navigator.pop();
