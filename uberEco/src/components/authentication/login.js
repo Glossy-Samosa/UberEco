@@ -52,6 +52,7 @@ module.exports = React.createClass({
     }
   },
   onSignupPress: function() {
+    this.setState({errorMessage: ''});
     this.props.navigator.push({name: 'signup'});
   }
 });
