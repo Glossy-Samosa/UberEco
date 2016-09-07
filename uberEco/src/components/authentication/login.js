@@ -12,7 +12,8 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     };
   },
   render: function() {
@@ -38,17 +39,20 @@ module.exports = React.createClass({
           onChangeText={(text) => this.setState({password: text})}
         />
 
+        <Text style={styles.error}>{this.state.errorMessage}</Text>
+        
         <Button text={'log in'} onPress={this.onLoginPress} />
-
-        <Text style={styles.signup} onPress={this.onSignupPress}>Or create an account</Text>
+        <Text style={styles.signup} onPress={this.onSignupPress}>Or create a new account</Text>
       </View>
     );
   },
   onLoginPress: function() {
-
+    if (this.state.username === '' || this.state.password === '') {
+      return this.setState({errorMessage: 'Please enter a password and username'});
+    }
   },
   onSignupPress: function() {
-    console.log('pressed onSignupPress');
+    this.props.navigator.push({name: 'signup'});
   }
 });
 
@@ -80,5 +84,8 @@ var styles = StyleSheet.create({
   signup: {
     padding: 20,
     marginTop: 30
+  },
+  error: {
+    color: 'red'
   }
 });
