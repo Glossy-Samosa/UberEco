@@ -113,7 +113,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     margin: 5,
-    width: 200,
+    width: 300,
     alignSelf: 'center'
   },
   header: {
