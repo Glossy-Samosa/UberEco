@@ -4,21 +4,16 @@ import {
   Text,
   View,
   TextInput,
-  MapView
+  // MapView
 } from 'react-native';
+import MapView from 'react-native-maps';
 
 module.exports = React.createClass({
   render: function() {
   	return (
       <View style={styles.container}>
       	<MapView 
-      	  style={styles.map} 
-      	  initialRegion={{
-		        latitude: 37.78825,
-		        longitude: -122.4324,
-		        latitudeDelta: 0.0922,
-		        longitudeDelta: 0.0421,
-		      }}
+      	  style={styles.map}
       	/>
       	<View style={styles.footer}>
       	</View>
