@@ -9,14 +9,23 @@ import {
 import MapView from 'react-native-maps';
 
 module.exports = React.createClass({
+	getInitialState: function() {
+    return {
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      }
+    };
+	},
   render: function() {
   	return (
       <View style={styles.container}>
       	<MapView 
-      	  style={styles.map}
-      	/>
-      	<View style={styles.footer}>
-      	</View>
+          style={styles.map}
+      	  initialRegion={this.state.region}
+      	></MapView>
       </View>
   	);
   }
@@ -24,12 +33,19 @@ module.exports = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-  	flex: 1
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   map: {
-  	flex: 2
-  },
-  footer: {
-  	flex: 1
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   }
 });
