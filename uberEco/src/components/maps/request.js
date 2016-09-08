@@ -49,24 +49,24 @@ module.exports = React.createClass({
 
     // IN REGION
     return (
-      <View style={[styles.container, this.border('yellow')]}>
+      <View style={styles.container}>
         
+        <View style={styles.top}>
+          <Text style={styles.subheader}>Enter Destination</Text>
+          <TextInput style={styles.input} />
+        </View>
+
         <MapView
-          style={[styles.map, this.border('red')]}
+          style={styles.map}
           onRegionChangeComplete={this.onRegionChangeComplete}
           annotations={[this.state.pin]}
           showsUserLocation={true}
-          // region={{
-          //   latitude: 37.788372,
-          //   longitude: -122.410196,
-          //   latitudeDelta: .045, 
-          //   longitudeDelta: .045
-          // }}
+          followUserLocation={true}
+          scrollEnabled={false}
+          zoomEnabled={false}
         />
 
-        <View style={styles.footer, this.border('green')}>
-          <Text style={styles.subheader}>Enter Destination</Text>
-          <TextInput style={styles.input} />
+        <View style={styles.bottom}>
           <Button text={'request ride'} />
         </View>
      
@@ -81,12 +81,6 @@ module.exports = React.createClass({
       }
     });
   },
-  border: function(color) {
-    return {
-      borderColor: color,
-      borderWidth: 4
-    };
-  },
   onVotePress: function() {
     this.setState({inRegion: true});
   }
@@ -100,11 +94,15 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  map: {
+  top: {
     flex: 1
   },
-  footer: {
-    flex: 1
+  map: {
+    flex: 6
+  },
+  bottom: {
+    flex: 1,
+    backgroundColor: '#5cb85c'
   },
   input: {
     padding: 4,
