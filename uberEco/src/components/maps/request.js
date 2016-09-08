@@ -53,7 +53,7 @@ module.exports = React.createClass({
     });
   },
   onRequestPress: function() {
-    console.log('request');
+    this.props.navigator.push({name: 'navigation'});
   }
 });
 
