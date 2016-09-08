@@ -38,15 +38,15 @@ module.exports = React.createClass({
 
     // response 404, not in region
     // MIMICING A 404 RESPONSE
-    setTimeout(function() {
-      this.props.navigator.push({name: 'suggest'});
-    }.bind(this), 2000);
+    // setTimeout(function() {
+    //   this.props.navigator.push({name: 'suggest'});
+    // }.bind(this), 2000);
 
     // response 200, in region
     // MIMICING A 200 RESPONSE
-    // setTimeout(function() {
-    //   this.props.navigator.push({name: 'request'});
-    // }.bind(this), 2000);
+    setTimeout(function() {
+      this.props.navigator.push({name: 'request'});
+    }.bind(this), 2000);
   }
 });
 
