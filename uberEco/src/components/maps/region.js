@@ -6,6 +6,8 @@ import {
   ActivityIndicator
 } from 'react-native';
 
+var Button = require('../common/button');
+
 module.exports = React.createClass({
 	getInitialState: function() {
     return {
@@ -13,22 +15,14 @@ module.exports = React.createClass({
     };
 	},
   componentWillMount: function() {
-  navigator.geolocation.getCurrentPosition(
-    (initialPosition) => {
-      var lng = initialPosition.coords.longitude;
-      var lat = initialPosition.coords.latitude;
-      this.checkRegion(lat, lng);
-    },
-    (error) => { console.log(error) },
-    {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
-  );
-
+    this.getCurrentPosition();
   },
   render: function() {
     if (this.state.error) {
     	return (
         <View style={styles.container}>
-          <Text style={styles.error}>An error occured...</Text>
+          <Text style={styles.text}>An error occured...</Text>
+          <Button text={'retry'} onPress={this.getCurrentPosition} />
         </View>
     	);
     }
@@ -39,6 +33,17 @@ module.exports = React.createClass({
       	<Text style={styles.text}>checking region</Text>
       </View>
   	);
+  },
+  getCurrentPosition: function() {
+    navigator.geolocation.getCurrentPosition(
+      (initialPosition) => {
+        var lng = initialPosition.coords.longitude;
+        var lat = initialPosition.coords.latitude;
+        this.checkRegion(lat, lng);
+      },
+      (error) => { console.log(error) },
+      {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
+    );
   },
   checkRegion: function(lat, lng) {
 
@@ -64,7 +69,6 @@ module.exports = React.createClass({
       	}
       })
       .catch((error) => {
-        console.error(error);
         this.setState({error: true});
       });
   }
@@ -86,8 +90,5 @@ var styles = StyleSheet.create({
   	fontSize: 20,
   	color: '#555',
   	marginTop: 20
-  },
-  error: {
-  	color: 'red'
   }
 });
