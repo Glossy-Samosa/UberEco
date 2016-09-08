@@ -9,15 +9,14 @@ import {
 module.exports = React.createClass({
 	getInitialState: function() {
     return {
-      lat: null,
-      lng: null
+      error: false
     };
 	},
   componentWillMount: function() {
   navigator.geolocation.getCurrentPosition(
     (initialPosition) => {
-      var lat = initialPosition.coords.longitude;
-      var lng = initialPosition.coords.latitude;
+      var lng = initialPosition.coords.longitude;
+      var lat = initialPosition.coords.latitude;
       this.checkRegion(lat, lng);
     },
     (error) => { console.log(error) },
@@ -26,6 +25,14 @@ module.exports = React.createClass({
 
   },
   render: function() {
+    if (this.state.error) {
+    	return (
+        <View style={styles.container}>
+          <Text style={styles.error}>An error occured...</Text>
+        </View>
+    	);
+    }
+
   	return (
       <View style={styles.container}>
       	<ActivityIndicator animating={true} size={'large'} style={styles.activity} />
@@ -34,12 +41,15 @@ module.exports = React.createClass({
   	);
   },
   checkRegion: function(lat, lng) {
-    var lat = 37.7836966;
-    var lng = -122.4089664;
 
-    console.log('about to fetch');
-    fetch('http://localhost:3000/api/region/', {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    fetch('http://localhost:3000/api/region', {
       method: 'POST',
+      headers: myHeaders,
+      mode: 'cors',
+      cache: 'default',
       body: JSON.stringify({
         latitude: lat,
         longitude: lng
@@ -50,11 +60,12 @@ module.exports = React.createClass({
       	if (response.status === 404) {
       		this.props.navigator.push({name: 'suggest'});
       	} else if (response.status === 200) {
-      		this.props.navigator.push({name: ' request'});
+      		this.props.navigator.push({name: 'request'});
       	}
       })
       .catch((error) => {
         console.error(error);
+        this.setState({error: true});
       });
   }
 });
@@ -75,5 +86,8 @@ var styles = StyleSheet.create({
   	fontSize: 20,
   	color: '#555',
   	marginTop: 20
+  },
+  error: {
+  	color: 'red'
   }
 });
