@@ -25,6 +25,7 @@ module.exports = React.createClass({
       function(initialPosition) {
         var lng = initialPosition.coords.longitude;
         var lat = initialPosition.coords.latitude;
+        console.log(initialPosition);
         this.checkRegion(lat, lng);  
       }.bind(this),
       function(error) {
@@ -32,8 +33,8 @@ module.exports = React.createClass({
       },
       {
         enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000
+        timeout: 10000,
+        maximumAge: 0
       }
     );
   },
@@ -96,7 +97,7 @@ module.exports = React.createClass({
     this.setState({inRegion: true});
   },
   onRequestPress: function() {
-
+    
   },
   checkRegion: function(lat, lng) {
     setTimeout(function() {

@@ -51,7 +51,7 @@ module.exports = React.createClass({
       return this.setState({errorMessage: 'Please enter a password and username'});
     }
     // CREATE SERVER POST HERE
-    this.props.navigator.immediatelyResetRouteStack([{name: 'maps'}]);
+    this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]);
   },
   onSignupPress: function() {
     this.setState({errorMessage: ''});

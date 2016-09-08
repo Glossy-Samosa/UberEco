@@ -63,7 +63,7 @@ module.exports = React.createClass({
       return this.setState({errorMessage: 'Your passwords do not match'});
     }
     // CREATE SERVER POST HERE
-    this.props.navigator.immediatelyResetRouteStack([{name: 'maps'}]);
+    this.props.navigator.immediatelyResetRouteStack([{name: 'request'}]);
   },
   onLoginPress: function() {
     this.props.navigator.pop();
