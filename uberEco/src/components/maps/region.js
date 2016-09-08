@@ -34,19 +34,28 @@ module.exports = React.createClass({
   	);
   },
   checkRegion: function(lat, lng) {
-    // POST /api/region
+    var lat = 37.7836966;
+    var lng = -122.4089664;
 
-    // response 404, not in region
-    // MIMICING A 404 RESPONSE
-    // setTimeout(function() {
-    //   this.props.navigator.push({name: 'suggest'});
-    // }.bind(this), 2000);
-
-    // response 200, in region
-    // MIMICING A 200 RESPONSE
-    setTimeout(function() {
-      this.props.navigator.push({name: 'request'});
-    }.bind(this), 2000);
+    console.log('about to fetch');
+    fetch('http://localhost:3000/api/region/', {
+      method: 'POST',
+      body: JSON.stringify({
+        latitude: lat,
+        longitude: lng
+      })
+    })
+      .then((response) => { 
+      	console.log(response.status); 
+      	if (response.status === 404) {
+      		this.props.navigator.push({name: 'suggest'});
+      	} else if (response.status === 200) {
+      		this.props.navigator.push({name: ' request'});
+      	}
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 });
 
