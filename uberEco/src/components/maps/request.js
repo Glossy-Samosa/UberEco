@@ -67,7 +67,7 @@ module.exports = React.createClass({
         />
 
         <View style={styles.bottom}>
-          <Button text={'request ride'} />
+          <Button text={'request ride'} onPress={this.onRequestPress} />
         </View>
      
       </View>
@@ -83,6 +83,9 @@ module.exports = React.createClass({
   },
   onVotePress: function() {
     this.setState({inRegion: true});
+  },
+  onRequestPress: function() {
+
   }
 });
 
@@ -95,10 +98,10 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   top: {
-    flex: 1
+    flex: 2
   },
   map: {
-    flex: 6
+    flex: 11
   },
   bottom: {
     flex: 1,
@@ -107,7 +110,7 @@ var styles = StyleSheet.create({
   input: {
     padding: 4,
     height: 40,
-    borderColor: 'black',
+    borderColor: '#777',
     borderWidth: 1,
     borderRadius: 5,
     margin: 5,
@@ -122,6 +125,7 @@ var styles = StyleSheet.create({
   subheader: {
     fontSize: 20,
     color: '#555',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 20
   }
 });
