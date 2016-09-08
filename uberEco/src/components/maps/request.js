@@ -21,10 +21,21 @@ module.exports = React.createClass({
     };
   },
   componentWillMount: function() {
-    // POST TO CHECK AVAILABLE REGION
-    setTimeout(function() {
-      this.setState({inRegion: false})
-    }.bind(this), 1000);
+    navigator.geolocation.getCurrentPosition(
+      function(initialPosition) {
+        var lng = initialPosition.coords.longitude;
+        var lat = initialPosition.coords.latitude;
+        this.checkRegion(lat, lng);  
+      }.bind(this),
+      function(error) {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000
+      }
+    );
   },
   render: function() {
     // WAITING FOR SERVER RESPONSE
@@ -86,6 +97,11 @@ module.exports = React.createClass({
   },
   onRequestPress: function() {
 
+  },
+  checkRegion: function(lat, lng) {
+    setTimeout(function() {
+      this.setState({inRegion: false})
+    }.bind(this), 1000);
   }
 });
 
