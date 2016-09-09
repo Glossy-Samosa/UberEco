@@ -63,7 +63,30 @@ module.exports = React.createClass({
       return this.setState({errorMessage: 'Your passwords do not match'});
     }
     // CREATE SERVER POST HERE
-    this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]);
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    
+    fetch('http://localhost:3000/api/user/signup', {
+      method: 'POST',
+      headers: myHeaders,
+      mode: 'cors',
+      cache: 'default',
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    })
+      .then((response) => { 
+        // Unauthorized 
+        if (response.status === 401) {
+          this.setState({errorMessage: 'An error occured. Please try again'});  
+        } else if (response.status === 200) {
+          this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]); 
+        }
+      })
+      .catch((error) => {
+        this.setState({errorMessage: 'An error occured. Please try again'});
+      });
   },
   onLoginPress: function() {
     this.props.navigator.pop();
