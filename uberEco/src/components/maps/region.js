@@ -11,7 +11,9 @@ var Button = require('../common/button');
 module.exports = React.createClass({
 	getInitialState: function() {
     return {
-      error: false
+      error: false,
+      lat: 0,
+      lng: 0
     };
 	},
   componentWillMount: function() {
@@ -39,6 +41,8 @@ module.exports = React.createClass({
       (initialPosition) => {
         var lng = initialPosition.coords.longitude;
         var lat = initialPosition.coords.latitude;
+        this.setState({lat: lat});
+        this.setState({lng: lng});
         this.checkRegion(lat, lng);
       },
       (error) => { console.log(error) },
@@ -65,7 +69,13 @@ module.exports = React.createClass({
       	if (response.status === 404) {
       		this.props.navigator.push({name: 'suggest'});
       	} else if (response.status === 200) {
-      		this.props.navigator.push({name: 'request'});
+      		this.props.navigator.push({
+            name: 'request', 
+            location: {
+              lat: this.state.lat,
+              lng: this.state.lng
+            }
+          });
       	}
       })
       .catch((error) => {

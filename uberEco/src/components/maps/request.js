@@ -4,17 +4,20 @@ import {
   Text,
   View,
   TextInput,
-  MapView
+  ScrollView
 } from 'react-native';
+import MapView from 'react-native-maps';
 
 var Button = require('../common/button');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      location: {
-        latitude: 0,
-        longitude: 0
+      region: {
+        latitude: this.props.route.location.lat,
+        longitude: this.props.route.location.lng,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005
       }
     };
   },
@@ -25,17 +28,21 @@ module.exports = React.createClass({
         <View style={styles.top}>
           <Text style={styles.subheader}>Enter Destination</Text>
           <TextInput style={styles.input} />
+          <ScrollView style={styles.scroll}>
+            <Text>{this.props.passProps}</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+          </ScrollView>
         </View>
 
-        <MapView
-          style={styles.map}
-          onRegionChangeComplete={this.onRegionChangeComplete}
-          annotations={[this.state.location]}
-          showsUserLocation={true}
-          followUserLocation={true}
-          scrollEnabled={false}
-          zoomEnabled={false}
-        />
+          <MapView 
+            style={styles.map}
+            initialRegion={this.state.region}
+          >
+          </MapView>
 
         <View style={styles.bottom}>
           <Button text={'request ride'} onPress={this.onRequestPress} />
@@ -62,10 +69,10 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   top: {
-    flex: 2
+    flex: 3
   },
   map: {
-    flex: 11
+    flex: 9
   },
   bottom: {
     flex: 1,
@@ -78,6 +85,10 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     margin: 5,
+    width: 300,
+    alignSelf: 'center'
+  },
+  scroll: {
     width: 300,
     alignSelf: 'center'
   },
