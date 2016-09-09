@@ -6,7 +6,9 @@ import {
   TextInput,
   ScrollView
 } from 'react-native';
+
 import MapView from 'react-native-maps';
+import Geocoder from 'react-native-geocoder';
 
 var Button = require('../common/button');
 
@@ -48,6 +50,7 @@ module.exports = React.createClass({
           showsUserLocation={true}
           onRegionChange={this.onRegionChange}
           onRegionChangeComplete={this.onRegionChangeComplete}
+          showsPointsOfInterest={false}
         >
           <MapView.Marker 
             coordinate={this.state.annotation}
