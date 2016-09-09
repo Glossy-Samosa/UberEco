@@ -6,12 +6,18 @@ import {
 
 var Login = require('./components/authentication/login');
 var Signup = require('./components/authentication/signup');
-var Maps = require('./components/maps/request');
+var Request = require('./components/maps/request');
+var Region = require('./components/maps/region');
+var Suggest = require('./components/maps/suggest');
+var Navigation = require('./components/maps/navigation');
 
 var ROUTES = {
 	login: Login,
 	signup: Signup,
-  maps: Maps
+  request: Request,
+  region: Region,
+  suggest: Suggest,
+  navigation: Navigation
 };
 
 module.exports = React.createClass({
@@ -23,7 +29,7 @@ module.exports = React.createClass({
     return (
       <Navigator 
         style={styles.container}
-        initialRoute={{name: 'maps'}}
+        initialRoute={{name: 'login'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }}
       />
