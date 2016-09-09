@@ -18,6 +18,10 @@ module.exports = React.createClass({
         longitude: this.props.route.location.lng,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005
+      },
+      annotation: {
+        latitude: this.props.route.location.lat,
+        longitude: this.props.route.location.lng,
       }
     };
   },
@@ -38,11 +42,15 @@ module.exports = React.createClass({
           </ScrollView>
         </View>
 
-          <MapView 
-            style={styles.map}
-            initialRegion={this.state.region}
-          >
-          </MapView>
+        <MapView 
+          style={styles.map}
+          initialRegion={this.state.region}
+          showsUserLocation={true}
+        >
+          <MapView.Marker 
+            coordinate={this.state.annotation}
+          />
+        </MapView>
 
         <View style={styles.bottom}>
           <Button text={'request ride'} onPress={this.onRequestPress} />
