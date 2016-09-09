@@ -26,7 +26,11 @@ module.exports = React.createClass({
         longitude: this.props.route.location.lng,
       },
       destination: {
-        formattedAddress: ''
+        formattedAddress: '',
+        position: {
+          lat: 0,
+          lng: 0
+        }
       }
     };
   },
@@ -74,7 +78,6 @@ module.exports = React.createClass({
   onInputChange: function(event) {
     Geocoder.geocodeAddress(event.nativeEvent.text)
       .then(res => {
-        console.log(res[0]);
         this.setState({destination: res[0]});
       })
       .catch(err => console.log(err));
@@ -91,6 +94,15 @@ module.exports = React.createClass({
     this.annotation.showCallout();
   },
   onRequestPress: function() {
+    var origin = {
+      lat: this.state.annotation.latitude,
+      lng: this.state.annotation.longitude
+    }
+    var destination = {
+      lat: this.state.destination.position.lat,
+      lng: this.state.destination.position.lng
+    }
+    console.log(origin, destination);
     this.props.navigator.push({name: 'navigation'});
   }
 });
