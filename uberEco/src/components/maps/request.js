@@ -46,10 +46,19 @@ module.exports = React.createClass({
           style={styles.map}
           initialRegion={this.state.region}
           showsUserLocation={true}
+          onRegionChange={this.onRegionChange}
+          onRegionChangeComplete={this.onRegionChangeComplete}
         >
           <MapView.Marker 
             coordinate={this.state.annotation}
-          />
+            ref={ref => { this.marker = ref; }}
+          >
+            <MapView.Callout style={styles.callout}>
+              <View>
+                <Text>set location</Text>
+              </View>
+            </MapView.Callout>
+          </MapView.Marker>
         </MapView>
 
         <View style={styles.bottom}>
@@ -59,13 +68,16 @@ module.exports = React.createClass({
       </View>
     );
   },
-  onRegionChangeComplete: function(region) {
+  onRegionChange: function(region) {
     this.setState({
-      location: {
+      annotation: {
         latitude: region.latitude,
         longitude: region.longitude
       }
     });
+  },
+  onRegionChangeComplete: function(region) {
+    this.marker.showCallout();
   },
   onRequestPress: function() {
     this.props.navigator.push({name: 'navigation'});
@@ -105,5 +117,8 @@ var styles = StyleSheet.create({
     color: '#555',
     alignSelf: 'center',
     marginTop: 20
+  },
+  callout: {
+    width: 75
   }
 });
