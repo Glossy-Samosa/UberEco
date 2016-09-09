@@ -33,7 +33,10 @@ module.exports = React.createClass({
         
         <View style={styles.top}>
           <Text style={styles.subheader}>Enter Destination</Text>
-          <TextInput style={styles.input} />
+          <TextInput 
+            style={styles.input} 
+            onChange={this.onInputChange}
+          />
           <ScrollView style={styles.scroll}>
             <Text>{this.props.passProps}</Text>
             <Text>Test</Text>
@@ -70,6 +73,9 @@ module.exports = React.createClass({
      
       </View>
     );
+  },
+  onInputChange: function(event) {
+    console.log(event.nativeEvent.text);
   },
   onRegionChange: function(region) {
     this.setState({
