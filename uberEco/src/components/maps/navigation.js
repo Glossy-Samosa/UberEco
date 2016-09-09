@@ -4,9 +4,11 @@ import {
   Text,
   View,
   TextInput,
-  // MapView
+  Dimensions
 } from 'react-native';
 import MapView from 'react-native-maps';
+
+var { width, height } = Dimensions.get('window');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -25,7 +27,11 @@ module.exports = React.createClass({
       	<MapView 
           style={styles.map}
       	  initialRegion={this.state.region}
-      	></MapView>
+      	>
+        </MapView>
+        <View style={styles.directions}>
+          <Text>Directions</Text>
+        </View>
       </View>
   	);
   }
@@ -33,6 +39,7 @@ module.exports = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -44,6 +51,13 @@ var styles = StyleSheet.create({
   map: {
     position: 'absolute',
     top: 0,
+    left: 0,
+    right: 0,
+    bottom: height * (1 / 3),
+  },
+  directions: {
+    position: 'absolute',
+    top: height * (2 / 3),
     left: 0,
     right: 0,
     bottom: 0,
