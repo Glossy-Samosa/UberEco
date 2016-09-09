@@ -24,6 +24,9 @@ module.exports = React.createClass({
       annotation: {
         latitude: this.props.route.location.lat,
         longitude: this.props.route.location.lng,
+      },
+      destination: {
+        formattedAddress: ''
       }
     };
   },
@@ -37,14 +40,8 @@ module.exports = React.createClass({
             style={styles.input} 
             onChange={this.onInputChange}
           />
-          <ScrollView style={styles.scroll}>
-            <Text>{this.props.passProps}</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-          </ScrollView>
+          <Text style={styles.address}>{this.state.destination.formattedAddress}</Text>
+
         </View>
 
         <MapView 
@@ -75,7 +72,12 @@ module.exports = React.createClass({
     );
   },
   onInputChange: function(event) {
-    console.log(event.nativeEvent.text);
+    Geocoder.geocodeAddress(event.nativeEvent.text)
+      .then(res => {
+        console.log(res[0]);
+        this.setState({destination: res[0]});
+      })
+      .catch(err => console.log(err));
   },
   onRegionChange: function(region) {
     this.setState({
@@ -112,12 +114,7 @@ var styles = StyleSheet.create({
     height: 40,
     borderColor: '#777',
     borderWidth: 1,
-    borderRadius: 5,
     margin: 5,
-    width: 300,
-    alignSelf: 'center'
-  },
-  scroll: {
     width: 300,
     alignSelf: 'center'
   },
@@ -126,6 +123,13 @@ var styles = StyleSheet.create({
     color: '#555',
     alignSelf: 'center',
     marginTop: 20
+  },
+  address: {
+    fontSize: 18,
+    color: '#428bca',
+    alignSelf: 'center',
+    width: 300,
+    marginTop: 5
   },
   callout: {
     width: 75
