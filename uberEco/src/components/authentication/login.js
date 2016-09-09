@@ -51,7 +51,30 @@ module.exports = React.createClass({
       return this.setState({errorMessage: 'Please enter a password and username'});
     }
     // CREATE SERVER POST HERE
-    this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]);
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    
+    fetch('http://localhost:3000/api/user/login', {
+      method: 'POST',
+      headers: myHeaders,
+      mode: 'cors',
+      cache: 'default',
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    })
+      .then((response) => { 
+        // Unauthorized 
+        if (response.status === 401) {
+          this.setState({errorMessage: 'An error occured. Please try again'});  
+        } else if (response.status === 200) {
+          this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]); 
+        }
+      })
+      .catch((error) => {
+        this.setState({errorMessage: 'An error occured. Please try again'});
+      });
   },
   onSignupPress: function() {
     this.setState({errorMessage: ''});
