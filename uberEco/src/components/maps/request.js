@@ -51,7 +51,7 @@ module.exports = React.createClass({
         >
           <MapView.Marker 
             coordinate={this.state.annotation}
-            ref={ref => { this.marker = ref; }}
+            ref={ref => { this.annotation = ref; }}
           >
             <MapView.Callout style={styles.callout}>
               <View>
@@ -77,7 +77,7 @@ module.exports = React.createClass({
     });
   },
   onRegionChangeComplete: function(region) {
-    this.marker.showCallout();
+    this.annotation.showCallout();
   },
   onRequestPress: function() {
     this.props.navigator.push({name: 'navigation'});
