@@ -79,13 +79,13 @@ module.exports = React.createClass({
       .then((response) => { 
         // Unauthorized 
         if (response.status === 401) {
-          this.setState({errorMessage: 'An error occured'});  
+          this.setState({errorMessage: 'An error occured. Please try again'});  
         } else if (response.status === 200) {
           this.props.navigator.immediatelyResetRouteStack([{name: 'region'}]); 
         }
       })
       .catch((error) => {
-        this.setState({errorMessage: 'An error occured'});
+        this.setState({errorMessage: 'An error occured. Please try again'});
       });
   },
   onLoginPress: function() {
