@@ -107,7 +107,7 @@ module.exports = React.createClass({
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     
-    fetch('http://104.131.158.94:3000/api/navigation', {
+    fetch('http://104.131.158.94:3000/api/navigation/', {
       method: 'POST',
       headers: myHeaders,
       mode: 'cors',
@@ -118,19 +118,15 @@ module.exports = React.createClass({
       })
     })
       .then((response) => {
-        console.log(response);
+        return response.json();
+      })
+      .then((json) => {
         this.props.navigator.push({
           name: 'navigation',
           origin: origin,
           destination: destination,
-          stationA: {
-            lat: 37.783871,
-            lon: -122.408433,
-          },
-          stationB: {
-            lat: 37.778744,
-            lon: -122.418104,
-          }
+          stationA: json.stationA,
+          stationB: json.stationB
         });
       })
       .catch((error) => {

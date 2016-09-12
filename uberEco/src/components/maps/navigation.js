@@ -14,15 +14,19 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
+        latitude: 37.789929,
+        longitude: -122.409992,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      },
+      origin: this.props.route.origin,
+      destination: this.props.route.destination,
+      stationA: this.props.route.stationA,
+      stationB: this.props.route.stationB
     };
   },
   render: function() {
-
+    console.log(this.state.stationA, this.state.stationB);
     //need markers on the map for:
       // 1. current location
       // 2. station 1 location
@@ -35,38 +39,34 @@ module.exports = React.createClass({
         <MapView 
           style={styles.map}
           initialRegion={this.state.region}
-          showUserLocation={true}
+          showsUserLocation={true}
+          showsPointsOfInterest={false}
         >
           <MapView.Marker
-            coordinate={{latitude: 37.783807, longitude: -122.408483}}
+            coordinate={{latitude: this.state.stationA.lat, longitude: this.state.stationA.lon}}
             title={'station A'}
             description={'get bike here'}
+            pinColor={'red'}
           />
           <MapView.Marker
-            coordinate={{latitude: 37.786825, longitude: -122.398148}}
+            coordinate={{latitude: this.state.stationB.lat, longitude: this.state.stationB.lon}}
             title={'station B'}
             description={'leave bike here'}
+            pinColor={'blue'}
           />
           <MapView.Marker
-            coordinate={{latitude: 37.787783, longitude: -122.397013}}
+            coordinate={{latitude: this.state.destination.lat, longitude: this.state.destination.lon}}
             title={'destination'}
             description={'final destination'}
+            pinColor={'green'}
           />
         </MapView>
         <View style={styles.directions}>
-          <Text>Directions</Text>
+          <Text style={styles.header}>Directions</Text>
 
-          <Text>Current Location to Station A
-                Distance: 
-          </Text>
-
-          <Text>Station A to Station B
-                Distance: 
-          </Text>
-
-          <Text>Station B to Destination
-                Distance: 
-          </Text>
+          <Text style={styles.steps}><Text style={styles.bold}>Step 1</Text>: Walk to the red pin {this.state.stationA.name}</Text>
+          <Text style={styles.steps}><Text style={styles.bold}>Step 2</Text>: Rent a bike and ride to the blue pin {this.state.stationB.name}</Text>
+          <Text style={styles.steps}><Text style={styles.bold}>Step 3</Text>: Drop off your bike and walk to your destination the green pin</Text>
 
         </View>
       </View>
@@ -98,5 +98,16 @@ var styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  header: {
+    fontSize: 20,
+    color: '#555',
+    marginTop: 5
+  },
+  steps: {
+    marginTop: 5
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 });
