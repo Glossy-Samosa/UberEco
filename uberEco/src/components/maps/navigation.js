@@ -18,11 +18,15 @@ module.exports = React.createClass({
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+      origin: this.props.route.origin,
+      destination: this.props.route.destination,
+      stationA: this.props.route.stationA,
+      stationB: this.props.route.stationB
     };
   },
   render: function() {
-
+    console.log(this.state.stationA, this.state.stationB);
     //need markers on the map for:
       // 1. current location
       // 2. station 1 location
