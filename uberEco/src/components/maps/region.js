@@ -54,7 +54,7 @@ module.exports = React.createClass({
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    fetch('http://138.68.23.11:3000/api/region', {
+    fetch('http://104.131.158.94:3000/api/region', {
       method: 'POST',
       headers: myHeaders,
       mode: 'cors',
