@@ -119,7 +119,19 @@ module.exports = React.createClass({
     })
       .then((response) => {
         console.log(response);
-        this.props.navigator.push({name: 'navigation'});
+        this.props.navigator.push({
+          name: 'navigation',
+          origin: origin,
+          destination: destination,
+          stationA: {
+            lat: 37.783871,
+            lon: -122.408433,
+          },
+          stationB: {
+            lat: 37.778744,
+            lon: -122.418104,
+          }
+        });
       })
       .catch((error) => {
         console.log('error :(');
