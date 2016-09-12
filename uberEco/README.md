@@ -20,9 +20,9 @@ iOS app written with react native
 
 ## Usage
 
-> install UberEco app on iPhone
-> or
-> clone repo and run 'react-native run-ios' on command line to start iOS simulator
+- install UberEco app on iPhone
+- or
+- clone repo and run 'react-native run-ios' on command line to start iOS simulator
 
 ## Requirements
 
