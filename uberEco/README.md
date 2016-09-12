@@ -1,6 +1,6 @@
 # UberEco
 
-iOS app written with react native
+iOS app for accessing driverless transportation.
 
 ## Team
 
